@@ -1,21 +1,69 @@
 var ziften = (function() {
-	// Inject jquery ui CSS as last stylesheet so it overrules other styles
+	// Private methods
+	var local = {
+			/**
+			 * Get list of Sifter projects
+			 *
+			 * @param updateIfPossible boolean if we should try to update the projectlist
+			 * @returns array of objects with label as projectname and href as url
+			 */
+			getProjectlist : function(updateIfPossible) {
+				var projectlist = [];
+
+				// If update is requested and we're on a projects page
+				if (updateIfPossible && $('body').hasClass('projects')) {
+					// Go over all projects and add them to the projects list
+					$('.group .name a').each(function() {
+						projectlist.push({ label: $(this).text(), href: $(this).attr('href') });
+					});
+
+					// Save projectslist to the storage
+					localStorage.projectlist = JSON.stringify(projectlist);
+				}
+				// If there is a list in the storage
+				else if (localStorage.projectlist.length > 0) {
+					// Unserialize it
+					projectlist = JSON.parse(localStorage.projectlist);
+				}
+
+				return projectlist;
+			}
+		},
+	// Tweaks and optimizations divided by methods to easily enabled just some of them
+	tweaks = {
+			/**
+			 * Focus on the searchfield
+			 *
+			 * @returns Boolean, true when the field is focussed, false when the field isn't found
+			 */
+			searchfieldAutofocus : function() {
+				// Focus and check if anything was focussed
+				return ($('.query').focus().length > 0);
+			},
+
+			/**
+			 * Enable autocompletion on the seachfield for:
+			 *  - Projects
+			 */
+			searchfieldAutocomplete : function() {
+				// Enable autcompletion
+				$('.query').autocomplete({
+					source: local.getProjectlist(true), // Get the source items to search thru
+					delay: 0, // Do not wait to show results
+					autoFocus: true, // Focus the first result automaticly
+					select: function(event, ui) {
+						// When an result is choosen jump directly to that page
+						event.preventDefault();
+						window.location.href = ui.item.href;
+					}
+				});
+			}
+		};
+
+	// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
 	$('head').append('<link href="' + safari.extension.baseURI + 'css/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">');
 
-	// Aggregate project autocomplete data
-	var projectlist = [];
-	$('.group .name a').each(function() {
-		projectlist.push({ label: $(this).text(), href: $(this).attr('href') });
-	});
-
-	// Searchfield tweaks
-	$('.query').autocomplete({
-		source: projectlist,
-		delay: 0,
-		autoFocus: true,
-		select: function(event, ui) {
-			event.preventDefault();
-			window.location.href = ui.item.href;
-		}
-	}).focus();
+	// Enable tweaks
+	tweaks.searchfieldAutocomplete();
+	tweaks.searchfieldAutofocus();
 })();
