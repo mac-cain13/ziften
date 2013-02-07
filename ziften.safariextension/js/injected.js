@@ -7,14 +7,14 @@ var ziften = (function() {
 			 * @param updateIfPossible boolean if we should try to update the projectlist
 			 * @returns array of objects with label as projectname and href as url
 			 */
-			getProjectlist : function(updateIfPossible) {
+			getProjectlist: function(updateIfPossible) {
 				var projectlist = [];
 
 				// If update is requested and we're on a projects page
 				if (updateIfPossible && $('body').hasClass('projects')) {
 					// Go over all projects and add them to the projects list
 					$('.group .name a').each(function() {
-						projectlist.push({ label: $(this).text(), href: $(this).attr('href') });
+						projectlist.push({ label: $(this).text(), href: local.stripQueryStringAndHashFromURL($(this).attr('href')) });
 					});
 
 					// Save projectslist to the storage
@@ -27,6 +27,18 @@ var ziften = (function() {
 				}
 
 				return projectlist;
+			},
+
+			/**
+			 * Strip querystring and hash from URL
+			 *  Before: /something?parameter#hastag
+			 *  After: /something
+			 *
+			 * @param URL to strip
+			 * @returns String of stripped URL
+			 */
+			stripQueryStringAndHashFromURL: function(url) {
+				return url.split('?')[0].split('#')[0];
 			}
 		},
 	// Tweaks and optimizations divided by methods to easily enabled just some of them
@@ -36,7 +48,7 @@ var ziften = (function() {
 			 *
 			 * @returns Boolean, true when the field is focussed, false when the field isn't found
 			 */
-			searchfieldAutofocus : function() {
+			searchfieldAutofocus: function() {
 				// Focus and check if anything was focussed
 				return ($('.query').focus().length > 0);
 			},
@@ -45,7 +57,7 @@ var ziften = (function() {
 			 * Enable autocompletion on the seachfield for:
 			 *  - Projects
 			 */
-			searchfieldAutocomplete : function() {
+			searchfieldAutocomplete: function() {
 				// Enable autcompletion
 				$('.query').autocomplete({
 					source: local.getProjectlist(true), // Get the source items to search thru
