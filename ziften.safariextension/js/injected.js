@@ -57,6 +57,22 @@ var ziften = (function() {
 						window.location.href = ui.item.href;
 					}
 				});
+			},
+
+			/**
+			 * Jump directly to an issue from the searchfield
+			 *  the search string should be like: #1234
+			 */
+			seachfieldJumpToIssue : function() {
+				$('.query').parent('form').submit(function(event) {
+					// Look if the search is for an issuenumber
+					var issuenumber = $('.query').val().match(/^#(\d+)$/);
+					if (issuenumber) {
+						// It is, prevent default search and go to issue page
+						event.preventDefault();
+						window.location.href = '/issues/' + issuenumber[1];
+					}
+				});
 			}
 		};
 
@@ -66,4 +82,5 @@ var ziften = (function() {
 	// Enable tweaks
 	tweaks.searchfieldAutocomplete();
 	tweaks.searchfieldAutofocus();
+	tweaks.seachfieldJumpToIssue();
 })();
