@@ -14,7 +14,7 @@ var ziften = (function() {
 				if (updateIfPossible && $('.switcher .menu').length == 1) {
 					// Go over all projects and add them to the projects list
 					$('.switcher .menu a').each(function() {
-						projectlist.push({ label: $(this).text(), href: local.stripQueryStringAndHashFromURL($(this).attr('href')) });
+						projectlist.push({ label: $(this).text(), href: $(this).attr('href') });
 					});
 
 					// Save projectslist to the storage
@@ -27,20 +27,9 @@ var ziften = (function() {
 				}
 
 				return projectlist;
-			},
-
-			/**
-			 * Strip querystring and hash from URL
-			 *  Before: /something?parameter#hastag
-			 *  After: /something
-			 *
-			 * @param URL to strip
-			 * @returns String of stripped URL
-			 */
-			stripQueryStringAndHashFromURL: function(url) {
-				return url.split('?')[0].split('#')[0];
 			}
 		},
+
 	// Tweaks and optimizations divided by methods to easily enabled just some of them
 	tweaks = {
 			/**
