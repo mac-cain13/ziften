@@ -11,9 +11,9 @@ var ziften = (function() {
 				var projectlist = [];
 
 				// If update is requested and we're on a projects page
-				if (updateIfPossible && $('body').hasClass('projects')) {
+				if (updateIfPossible && $('.switcher .menu').length == 1) {
 					// Go over all projects and add them to the projects list
-					$('.group .name a').each(function() {
+					$('.switcher .menu a').each(function() {
 						projectlist.push({ label: $(this).text(), href: local.stripQueryStringAndHashFromURL($(this).attr('href')) });
 					});
 
