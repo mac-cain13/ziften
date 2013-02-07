@@ -64,7 +64,7 @@ var ziften = (function() {
 			 * Jump directly to an issue from the searchfield
 			 *  the search string should be like: #1234
 			 */
-			seachfieldJumpToIssue : function() {
+			seachfieldJumpToIssue: function() {
 				$('.query').parent('form').submit(function(event) {
 					// Look if the search is for an issuenumber
 					var issuenumber = $('.query').val().match(/^#(\d+)$/);
@@ -72,6 +72,25 @@ var ziften = (function() {
 						// It is, prevent default search and go to issue page
 						event.preventDefault();
 						window.location.href = '/issues/' + issuenumber[1];
+					}
+				});
+			},
+
+			/**
+			 * Assign various hotkeys
+			 */
+			hotkeys: function() {
+				// Focus searchbar
+				key('s', function(event, handler) {
+					event.preventDefault();
+					tweaks.searchfieldAutofocus();
+				});
+
+				// Create new issue
+				key('n', function(event, handler) {
+					var newIssueUrl = $('.new-issue a').attr('href');
+					if (newIssueUrl) {
+						window.location.href = newIssueUrl;
 					}
 				});
 			}
@@ -82,6 +101,7 @@ var ziften = (function() {
 
 	// Enable tweaks
 	tweaks.searchfieldAutocomplete();
-	tweaks.searchfieldAutofocus();
 	tweaks.seachfieldJumpToIssue();
+	tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
+	tweaks.hotkeys();
 })();

@@ -37,6 +37,7 @@
 			<array>
 				<string>js/jquery.js</string>
 				<string>js/jquery-ui.js</string>
+				<string>js/keymaster.js</string>
 			</array>
 		</dict>
 	</dict>
