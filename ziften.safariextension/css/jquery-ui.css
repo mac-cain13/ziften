@@ -162,17 +162,14 @@
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Verdana,Arial,sans-serif;
-	font-size: 1em;
-}
-.ui-widget .ui-widget {
-	font-size: 1em;
+	font-family: inherit;
+	font-size: 0.9em;
 }
 .ui-widget input,
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Verdana,Arial,sans-serif;
+	font-family: inherit;
 	font-size: 1em;
 }
 .ui-widget-content {
@@ -216,7 +213,7 @@
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid #999999;
-	background: #dadada url(../images/ui-bg_glass_75_dadada_1x400.png) 50% 50% repeat-x;
+	background: #dadada;
 	font-weight: normal;
 	color: #212121;
 }
