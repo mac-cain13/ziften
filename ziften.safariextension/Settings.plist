@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>hotkeys</string>
+		<key>Title</key>
+		<string>Enable hotkeys</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<true/>
+			<false/>
+		</array>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Searchfield</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>seachfieldJumpToIssue</string>
+		<key>Title</key>
+		<string>Jump to issues</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<true/>
+			<false/>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<true/>
+		<key>Key</key>
+		<string>searchfieldJumpToProject</string>
+		<key>Title</key>
+		<string>Jumo to projects</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<true/>
+			<false/>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>searchfieldAutofocus</string>
+		<key>Title</key>
+		<string>Autofocus</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<true/>
+			<false/>
+		</array>
+	</dict>
+</array>
+</plist>

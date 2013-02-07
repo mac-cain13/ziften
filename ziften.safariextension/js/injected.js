@@ -43,11 +43,10 @@ var ziften = (function() {
 			},
 
 			/**
-			 * Enable autocompletion on the seachfield for:
-			 *  - Projects
+			 * Jump directly to a project
 			 */
-			searchfieldAutocomplete: function() {
-				// Enable autcompletion
+			searchfieldJumpToProject: function() {
+				// Enable project autcompletion
 				$('.query').autocomplete({
 					source: local.getProjectlist(true), // Get the source items to search thru
 					delay: 0, // Do not wait to show results
@@ -100,8 +99,9 @@ var ziften = (function() {
 	$('head').append('<link href="' + safari.extension.baseURI + 'css/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">');
 
 	// Enable tweaks
-	tweaks.searchfieldAutocomplete();
-	tweaks.seachfieldJumpToIssue();
-	tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
-	tweaks.hotkeys();
+	alert(safari.extension.settings.searchfieldJumpToProject);
+	if (safari.extension.settings.searchfieldJumpToProject) tweaks.searchfieldJumpToProject();
+	if (safari.extension.settings.seachfieldJumpToIssue) tweaks.seachfieldJumpToIssue();
+	if (safari.extension.settings.searchfieldAutofocus) tweaks.searchfieldAutofocus();
+	if (safari.extension.settings.hotkeys) tweaks.hotkeys();
 })();
