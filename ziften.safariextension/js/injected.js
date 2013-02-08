@@ -28,6 +28,74 @@ var ziften = (function() {
 				}
 
 				return projectlist;
+			},
+
+			/**
+			 * Get all known user IDs
+			 *
+			 * @param gatherFromPage boolean if we should gather and add al user IDs found on the current page
+			 * @returns array of user IDs
+			 */
+			getUserIds: function(gatherFromPage) {
+				var userIDs = [];
+
+				// Local all IDs from storage
+				if (localStorage.userids && localStorage.userids.length > 0) {
+					// Unserialize it
+					userIDs = JSON.parse(localStorage.userids);
+				}
+
+				// Gather and add all user IDs found on page if requested
+				if (gatherFromPage) {
+					// Get the user IDs from the current querystring
+					var userIdsInQuerystring = local.getQueryStringParam('a').split('-');
+					for (var i in userIdsInQuerystring) {
+						if (userIdsInQuerystring[i] !== '' && userIdsInQuerystring[i] !== '0' && userIDs.indexOf(userIdsInQuerystring[i]) == -1) {
+							userIDs.push(userIdsInQuerystring[i]);
+						}
+					}
+
+					// Loop through all sidebar navigation links
+					$('.secondary .module.navigation.local a').each(function(index, element) {
+						var href = $(this).attr('href'),
+							userIdsInQuerystring = local.getQueryStringParam('a', href.slice(href.indexOf('?'))).split('-');
+						for (var i in userIdsInQuerystring) {
+							if (userIdsInQuerystring[i] !== '' && userIdsInQuerystring[i] !== '0' && userIDs.indexOf(userIdsInQuerystring[i]) == -1) {
+								userIDs.push(userIdsInQuerystring[i]);
+							}
+						}
+					});
+
+					// Save user IDs to the storage
+					localStorage.userids = JSON.stringify(userIDs);
+				}
+
+				return userIDs;
+			},
+
+			/**
+			 * Get the ID of the user that's logged in
+			 *
+			 * @returns string user ID of the current user
+			 */
+			getCurrentUserId: function() {
+				var href = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
+				return local.getQueryStringParam('a', href.slice(href.indexOf('?')));
+			},
+
+			/**
+			 * Get a parameter from the querystring
+			 *  Heavily based on: https://developer.mozilla.org/en-US/docs/DOM/window.location
+			 *
+			 * @param string name of the parameter to get from the querystring
+			 * @param string optional the querystring to get the params from
+			 * @return string value of the parameter
+			 */
+			getQueryStringParam: function(parameter, querystring) {
+				if (!querystring) {
+					querystring = window.location.search;
+				}
+				return unescape(querystring.replace(new RegExp("^(?:.*[&\\?]" + escape(parameter).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 			}
 		},
 
@@ -94,6 +162,31 @@ var ziften = (function() {
 						window.location.href = newIssueUrl;
 					}
 				});
+			},
+
+			/**
+			 * Add "Others" to the issue menu
+			 */
+			othersIssues: function() {
+				// Gather all user IDs, the "our" user ID and the current project ID
+				var userIDs = local.getUserIds(true),
+					currentUserIdIndex = userIDs.indexOf(local.getCurrentUserId()),
+					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
+
+				// Create string of all user IDs of the other users
+				userIDs.splice(currentUserIdIndex, 1);
+				otherUserIdsString = userIDs.join('-');
+
+				// Correct base path to base our URLs on
+				path = path.slice(0, path.indexOf('?'));
+
+				// Inject a row into the menu
+				$('.nav .issues .menu table').append(
+					'<tr>' +
+						'<td class="count open"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">?</a> </td>' +
+						'<td class="count resolved"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">?</a> </td>' +
+						'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
+					'</tr>');
 			}
 		};
 
@@ -105,4 +198,5 @@ var ziften = (function() {
 	tweaks.seachfieldJumpToIssue();
 	tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
 	tweaks.hotkeys();
+	tweaks.othersIssues();
 })();
