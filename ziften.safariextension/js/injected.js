@@ -43,10 +43,10 @@ var ziften = (function() {
 			},
 
 			/**
-			 * Enable autocompletion on the seachfield for:
-			 *  - Projects
+			 * Jump directly to a project from the searchfield
+			 *  with the assistance of autocomplete
 			 */
-			searchfieldAutocomplete: function() {
+			searchfieldJumpToProject: function() {
 				// Enable autcompletion
 				$('.query').autocomplete({
 					source: local.getProjectlist(true), // Get the source items to search thru
@@ -100,7 +100,7 @@ var ziften = (function() {
 	$('head').append('<link href="' + safari.extension.baseURI + 'css/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">');
 
 	// Enable tweaks
-	tweaks.searchfieldAutocomplete();
+	tweaks.searchfieldJumpToProject();
 	tweaks.seachfieldJumpToIssue();
 	tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
 	tweaks.hotkeys();
