@@ -13,15 +13,16 @@ var ziften = (function() {
 				// If update is requested and we're on a projects page
 				if (updateIfPossible && $('.switcher .menu').length == 1) {
 					// Go over all projects and add them to the projects list
-					$('.switcher .menu a').each(function() {
-						projectlist.push({ label: $(this).text(), href: $(this).attr('href') });
+					$('.switcher .menu a').each(function(index, element) {
+						var object = $(this);
+						projectlist.push({ label: object.text(), href: object.attr('href') });
 					});
 
 					// Save projectslist to the storage
 					localStorage.projectlist = JSON.stringify(projectlist);
 				}
 				// If there is a list in the storage
-				else if (localStorage.projectlist.length > 0) {
+				else if (localStorage.projectlist && localStorage.projectlist.length > 0) {
 					// Unserialize it
 					projectlist = JSON.parse(localStorage.projectlist);
 				}
