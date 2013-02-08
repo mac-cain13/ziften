@@ -196,7 +196,7 @@ var ziften = (function() {
 	// Enable tweaks
 	tweaks.searchfieldJumpToProject();
 	tweaks.seachfieldJumpToIssue();
-	tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
+	//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
 	tweaks.hotkeys();
 	tweaks.othersIssues();
 })();
