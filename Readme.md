@@ -1,4 +1,4 @@
-# Ziften
+# ![Ziften icon](https://raw.github.com/mac-cain13/ziften/master/Icon.png)Ziften
 Ziften is a Safari extension that puts even more rocket fuel into the issuetracker [Sifter](https://www.sifterapp.com/). It adds hotkeys, search improvements and more for the best issuetracker for small teams.
 
 ## How to install?
