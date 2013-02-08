@@ -8,8 +8,19 @@ Ziften is a Safari extension that puts even more rocket fuel into the issuetrack
 and [load the extension into the extensionbuilder](https://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html%23//apple_ref/doc/uid/TP40009977-CH2-SW1)
 yourself so you can install it from there. Note that you need your own [Safari Developer Program](https://developer.apple.com/devcenter/safari/index.action) certificate to sign the extension.
 
-## What does it do?
-*Todo, should write about the functionality this extension adds.*
+## Features / What does it do?
+### Jump to issue
+Type # followed by an issuenumber and hit enter to jump to that issue instantly. So #1234 + enter will jump to issue 1234 without any pages in between.
+
+### Jump to project
+Start typing an projectname into the searchfield, Ziften will show an autocomplete list of matching projects. Click a project from the list or select a project with the arrow keys and hit enter to jump to that project. No more pointing and clicking through the dropdown list!
+
+### Other issues links
+In the "Issues"-menu a "Others" sections shows up to quickly show all issues that are resolved by other users. (Great for testing issues that your collegues solved!)
+
+### Hotkeys
+* Hit **n** to jump to the "New issue"-page, works on any page with the "New issue" link.
+* Hit **s** to focus the searchbox, works on any page with the searchbox
 
 ## How do I contribute?
 A: [Submit issues and ideas](https://github.com/mac-cain13/ziften/issues)
