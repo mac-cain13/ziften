@@ -10,13 +10,13 @@ yourself so you can install it from there. Note that you need your own [Safari D
 
 ## Features / What does it do?
 ### Jump to issue
-Type # followed by an issuenumber and hit enter to jump to that issue instantly. So #1234 + enter will jump to issue 1234 without any pages in between.
+Type # followed by an issuenumber and hit enter to jump to that issue instantly. So #1234 + enter will jump to issue 1234 page instantly.
 
 ### Jump to project
 Start typing an projectname into the searchfield, Ziften will show an autocomplete list of matching projects. Click a project from the list or select a project with the arrow keys and hit enter to jump to that project. No more pointing and clicking through the dropdown list!
 
 ### Other issues links
-In the "Issues"-menu a "Others" sections shows up to quickly show all issues that are resolved by other users. (Great for testing issues that your collegues solved!)
+In the "Issues"-menu an "Others" sections shows up to quickly show all issues that are resolved by other users. (Great for testing issues that your collegues solved!)
 
 ### Hotkeys
 * Hit **n** to jump to the "New issue"-page, works on any page with the "New issue" link.
