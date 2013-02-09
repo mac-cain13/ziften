@@ -2,11 +2,19 @@
 Ziften is a Safari extension that puts even more rocket fuel into the issuetracker [Sifter](https://www.sifterapp.com/). It adds hotkeys, search improvements and more for the best issuetracker for small teams.
 
 ## How to install?
-**Stable version:** Not available yet, will be soon.
+**Stable version:**
 
-**Development version:** [Download the source from GitHub](https://github.com/mac-cain13/ziften/archive/master.zip)
-and [load the extension into the extensionbuilder](https://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html%23//apple_ref/doc/uid/TP40009977-CH2-SW1)
-yourself so you can install it from there. Note that you need your own [Safari Developer Program](https://developer.apple.com/devcenter/safari/index.action) certificate to sign the extension.
+1. [Download the extension](http://mac-cain13.github.com/ziften/ziften.safariextz)
+2. Click on it so Safari will offer to install the extension
+3. Go to [Sifter](http://www.sifterapp.com/) and enjoy!
+
+**Development version:**
+
+1. [Download the source from GitHub](https://github.com/mac-cain13/ziften/archive/master.zip)
+2. [Load the extension into the extensionbuilder](https://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html%23//apple_ref/doc/uid/TP40009977-CH2-SW1)
+3. Click "Install" in the extensionbuilder
+
+_Note that you need your own [Safari Developer Program](https://developer.apple.com/devcenter/safari/index.action) certificate to sign the extension._
 
 ## Features / What does it do?
 ### Jump to issue
