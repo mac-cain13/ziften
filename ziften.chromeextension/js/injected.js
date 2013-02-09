@@ -190,13 +190,17 @@ var ziften = (function() {
 			}
 		};
 
-	// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
-	$('head').append('<link href="' + chrome.extension.getURL('css/jquery-ui.css') + '" media="screen" rel="stylesheet" type="text/css">');
+	// Make sure we're not on the home- or statuspage (especially for Chrome)
+	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/))
+	{
+		// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
+		$('head').append('<link href="' + chrome.extension.getURL('css/jquery-ui.css') + '" media="screen" rel="stylesheet" type="text/css">');
 
-	// Enable tweaks
-	tweaks.searchfieldJumpToProject();
-	tweaks.seachfieldJumpToIssue();
-	//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
-	tweaks.hotkeys();
-	tweaks.othersIssues();
+		// Enable tweaks if not on the homepage
+		tweaks.searchfieldJumpToProject();
+		tweaks.seachfieldJumpToIssue();
+		//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
+		tweaks.hotkeys();
+		tweaks.othersIssues();
+	}
 })();
