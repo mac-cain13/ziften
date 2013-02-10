@@ -2,6 +2,23 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			/**
+			 * Get the "public" URL to an extension resource
+			 *
+			 * @param path string relative path to the resource
+			 * @return string URL to use in the current page
+			 */
+			getURLForExtensionFile: function(path) {
+				if (safari) {
+					return safari.extension.baseURI + path;
+				} else if (chrome) {
+					return chrome.extension.getURL(path);
+				} else {
+					console.error('[Ziften] Unable not figure out the extension relative URL for ' + path);
+					return undefined;
+				}
+			},
+
+			/**
 			 * Get list of Sifter projects
 			 *
 			 * @param updateIfPossible boolean if we should try to update the projectlist
@@ -190,13 +207,17 @@ var ziften = (function() {
 			}
 		};
 
-	// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
-	$('head').append('<link href="' + safari.extension.baseURI + 'css/jquery-ui.css" media="screen" rel="stylesheet" type="text/css">');
+	// Make sure we're not on the home- or statuspage (especially for Chrome)
+	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/))
+	{
+		// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
+		$('head').append('<link href="' + local.getURLForExtensionFile('css/jquery-ui.css') + '" media="screen" rel="stylesheet" type="text/css">');
 
-	// Enable tweaks
-	tweaks.searchfieldJumpToProject();
-	tweaks.seachfieldJumpToIssue();
-	//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
-	tweaks.hotkeys();
-	tweaks.othersIssues();
+		// Enable tweaks if not on the homepage
+		tweaks.searchfieldJumpToProject();
+		tweaks.seachfieldJumpToIssue();
+		//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
+		tweaks.hotkeys();
+		tweaks.othersIssues();
+	}
 })();
