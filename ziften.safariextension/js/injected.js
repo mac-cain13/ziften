@@ -8,13 +8,13 @@ var ziften = (function() {
 			 * @return string URL to use in the current page
 			 */
 			getURLForExtensionFile: function(path) {
-				if (safari) {
+				if (window.safari) {
 					return safari.extension.baseURI + path;
-				} else if (chrome) {
+				} else if (window.chrome) {
 					return chrome.extension.getURL(path);
 				} else {
 					console.error('[Ziften] Unable not figure out the extension relative URL for ' + path);
-					return undefined;
+					return null;
 				}
 			},
 

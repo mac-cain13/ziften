@@ -17,6 +17,7 @@
 	} ],
 
 	"web_accessible_resources": [
-		"css/jquery-ui.css"
+		"css/jquery-ui.css",
+		"images/ui-bg_flat_75_ffffff_40x100.png"
 	]
 }
