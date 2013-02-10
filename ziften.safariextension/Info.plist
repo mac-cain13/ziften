@@ -23,6 +23,7 @@
 		<key>Blacklist</key>
 		<array>
 			<string>http://sifterapp.com/*</string>
+			<string>http://status.sifterapp.com/*</string>
 			<string>http://www.sifterapp.com/*</string>
 			<string>https://sifterapp.com/*</string>
 			<string>https://www.sifterapp.com/*</string>

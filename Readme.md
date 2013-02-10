@@ -1,7 +1,19 @@
 # ![Ziften icon](https://raw.github.com/mac-cain13/ziften/master/Icon.png)Ziften
-Ziften is a Safari extension that puts even more rocket fuel into the issuetracker [Sifter](https://www.sifterapp.com/). It adds hotkeys, search improvements and more for the best issuetracker for small teams.
+Ziften is a browser extension for [Chrome](http://chrome.google.com/) and [Safari](http://www.apple.com/safari/) that puts even more rocket fuel into the issuetracker [Sifter](https://www.sifterapp.com/). It adds hotkeys, search improvements and more for the best issuetracker for small teams.
 
 ## How to install?
+### Chrome
+**Stable version:**
+
+1. [Go to Ziften in the Chrome Webstore](https://chrome.google.com/webstore/detail/bnehhdimfhgkabgidahbfpchgnkiicog)
+2. Click "+ Add to Chrome"
+
+**Development version:**
+
+1. [Download the source from GitHub](https://github.com/mac-cain13/ziften/archive/master.zip)
+2. [Load the extension into Chrome](http://developer.chrome.com/extensions/getstarted.html#unpacked)
+
+### Safari
 **Stable version:**
 
 1. [Download the extension](http://mac-cain13.github.com/ziften/ziften.safariextz)
