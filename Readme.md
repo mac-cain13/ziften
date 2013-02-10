@@ -3,7 +3,10 @@ Ziften is a browser extension for [Chrome](http://chrome.google.com/) and [Safar
 
 ## How to install?
 ### Chrome
-**Stable version:** _Not yet available, comming soon!_
+**Stable version:**
+
+1. [Go to Ziften in the Chrome Webstore](https://chrome.google.com/webstore/detail/bnehhdimfhgkabgidahbfpchgnkiicog)
+2. Click "+ Add to Chrome"
 
 **Development version:**
 
