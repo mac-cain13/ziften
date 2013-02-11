@@ -132,7 +132,7 @@ var ziften = (function() {
 					},
 					messages: {
 						// Suppress the accessability message "X results found..."
-						noResults: null,
+						noResults: '',
 						results: function() {}
 					}
 				});
