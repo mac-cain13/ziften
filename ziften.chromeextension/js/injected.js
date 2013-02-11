@@ -180,7 +180,8 @@ var ziften = (function() {
 				// Gather all user IDs, the "our" user ID and the current project ID
 				var userIDs = local.getUserIds(true),
 					currentUserIdIndex = userIDs.indexOf(local.getCurrentUserId()),
-					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
+					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href'),
+					issuesMenu = $('.nav .issues .menu table');
 
 				// Create string of all user IDs of the other users
 				userIDs.splice(currentUserIdIndex, 1);
@@ -189,11 +190,16 @@ var ziften = (function() {
 				// Correct base path to base our URLs on
 				path = path.slice(0, path.indexOf('?'));
 
+				// Calculate the open/resolved issue count of "others"
+				//  others = (everyone's - unassigned - mine)
+				var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
+					othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
+
 				// Inject a row into the menu
-				$('.nav .issues .menu table').append(
+				issuesMenu.append(
 					'<tr>' +
-						'<td class="count open"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">?</a> </td>' +
-						'<td class="count resolved"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">?</a> </td>' +
+						'<td class="count open"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
+						'<td class="count resolved"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
 						'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
 					'</tr>');
 			}
