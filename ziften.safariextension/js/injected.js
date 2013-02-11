@@ -2,23 +2,6 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			/**
-			 * Get the "public" URL to an extension resource
-			 *
-			 * @param path string relative path to the resource
-			 * @return string URL to use in the current page
-			 */
-			getURLForExtensionFile: function(path) {
-				if (window.safari) {
-					return safari.extension.baseURI + path;
-				} else if (window.chrome) {
-					return chrome.extension.getURL(path);
-				} else {
-					console.error('[Ziften] Unable not figure out the extension relative URL for ' + path);
-					return null;
-				}
-			},
-
-			/**
 			 * Get list of Sifter projects
 			 *
 			 * @param updateIfPossible boolean if we should try to update the projectlist
@@ -28,20 +11,20 @@ var ziften = (function() {
 				var projectlist = [];
 
 				// If update is requested and we're on a projects page
-				if (updateIfPossible && $('.switcher .menu').length == 1) {
+				if (updateIfPossible && $('.switcher .menu, .group .name').length > 0) {
 					// Go over all projects and add them to the projects list
-					$('.switcher .menu a').each(function(index, element) {
+					$('.switcher .menu a, .group .name a').each(function(index, element) {
 						var object = $(this);
 						projectlist.push({ label: object.text(), href: object.attr('href') });
 					});
 
 					// Save projectslist to the storage
-					localStorage.projectlist = JSON.stringify(projectlist);
+					localStorage.ziftenProjectlist = JSON.stringify(projectlist);
 				}
 				// If there is a list in the storage
-				else if (localStorage.projectlist && localStorage.projectlist.length > 0) {
+				else if (localStorage.ziftenProjectlist && localStorage.ziftenProjectlist.length > 0) {
 					// Unserialize it
-					projectlist = JSON.parse(localStorage.projectlist);
+					projectlist = JSON.parse(localStorage.ziftenProjectlist);
 				}
 
 				return projectlist;
@@ -57,9 +40,9 @@ var ziften = (function() {
 				var userIDs = [];
 
 				// Local all IDs from storage
-				if (localStorage.userids && localStorage.userids.length > 0) {
+				if (localStorage.ziftenUserids && localStorage.ziftenUserids.length > 0) {
 					// Unserialize it
-					userIDs = JSON.parse(localStorage.userids);
+					userIDs = JSON.parse(localStorage.ziftenUserids);
 				}
 
 				// Gather and add all user IDs found on page if requested
@@ -84,7 +67,7 @@ var ziften = (function() {
 					});
 
 					// Save user IDs to the storage
-					localStorage.userids = JSON.stringify(userIDs);
+					localStorage.ziftenUserids = JSON.stringify(userIDs);
 				}
 
 				return userIDs;
@@ -142,6 +125,15 @@ var ziften = (function() {
 						// When an result is choosen jump directly to that page
 						event.preventDefault();
 						window.location.href = ui.item.href;
+					},
+					create: function(event, ui) {
+						// Uses Sifters mentions styling for the autocomplete
+						$('.ui-autocomplete').addClass('mentions');
+					},
+					messages: {
+						// Suppress the accessability message "X results found..."
+						noResults: '',
+						results: function() {}
 					}
 				});
 			},
@@ -188,7 +180,8 @@ var ziften = (function() {
 				// Gather all user IDs, the "our" user ID and the current project ID
 				var userIDs = local.getUserIds(true),
 					currentUserIdIndex = userIDs.indexOf(local.getCurrentUserId()),
-					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
+					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href'),
+					issuesMenu = $('.nav .issues .menu table');
 
 				// Create string of all user IDs of the other users
 				userIDs.splice(currentUserIdIndex, 1);
@@ -197,11 +190,16 @@ var ziften = (function() {
 				// Correct base path to base our URLs on
 				path = path.slice(0, path.indexOf('?'));
 
+				// Calculate the open/resolved issue count of "others"
+				//  others = (everyone's - unassigned - mine)
+				var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
+					othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
+
 				// Inject a row into the menu
-				$('.nav .issues .menu table').append(
+				issuesMenu.append(
 					'<tr>' +
-						'<td class="count open"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">?</a> </td>' +
-						'<td class="count resolved"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">?</a> </td>' +
+						'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
+						'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
 						'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
 					'</tr>');
 			}
@@ -210,9 +208,6 @@ var ziften = (function() {
 	// Make sure we're not on the home- or statuspage (especially for Chrome)
 	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/))
 	{
-		// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
-		$('head').append('<link href="' + local.getURLForExtensionFile('css/jquery-ui.css') + '" media="screen" rel="stylesheet" type="text/css">');
-
 		// Enable tweaks if not on the homepage
 		tweaks.searchfieldJumpToProject();
 		tweaks.seachfieldJumpToIssue();
