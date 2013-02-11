@@ -36,12 +36,12 @@ var ziften = (function() {
 					});
 
 					// Save projectslist to the storage
-					localStorage.projectlist = JSON.stringify(projectlist);
+					localStorage.ziftenProjectlist = JSON.stringify(projectlist);
 				}
 				// If there is a list in the storage
-				else if (localStorage.projectlist && localStorage.projectlist.length > 0) {
+				else if (localStorage.ziftenProjectlist && localStorage.ziftenProjectlist.length > 0) {
 					// Unserialize it
-					projectlist = JSON.parse(localStorage.projectlist);
+					projectlist = JSON.parse(localStorage.ziftenProjectlist);
 				}
 
 				return projectlist;
@@ -57,9 +57,9 @@ var ziften = (function() {
 				var userIDs = [];
 
 				// Local all IDs from storage
-				if (localStorage.userids && localStorage.userids.length > 0) {
+				if (localStorage.ziftenUserids && localStorage.ziftenUserids.length > 0) {
 					// Unserialize it
-					userIDs = JSON.parse(localStorage.userids);
+					userIDs = JSON.parse(localStorage.ziftenUserids);
 				}
 
 				// Gather and add all user IDs found on page if requested
@@ -84,7 +84,7 @@ var ziften = (function() {
 					});
 
 					// Save user IDs to the storage
-					localStorage.userids = JSON.stringify(userIDs);
+					localStorage.ziftenUserids = JSON.stringify(userIDs);
 				}
 
 				return userIDs;
