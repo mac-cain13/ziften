@@ -2,23 +2,6 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			/**
-			 * Get the "public" URL to an extension resource
-			 *
-			 * @param path string relative path to the resource
-			 * @return string URL to use in the current page
-			 */
-			getURLForExtensionFile: function(path) {
-				if (window.safari) {
-					return safari.extension.baseURI + path;
-				} else if (window.chrome) {
-					return chrome.extension.getURL(path);
-				} else {
-					console.error('[Ziften] Unable not figure out the extension relative URL for ' + path);
-					return null;
-				}
-			},
-
-			/**
 			 * Get list of Sifter projects
 			 *
 			 * @param updateIfPossible boolean if we should try to update the projectlist
@@ -142,6 +125,15 @@ var ziften = (function() {
 						// When an result is choosen jump directly to that page
 						event.preventDefault();
 						window.location.href = ui.item.href;
+					},
+					create: function(event, ui) {
+						// Uses Sifters mentions styling for the autocomplete
+						$('.ui-autocomplete').addClass('mentions');
+					},
+					messages: {
+						// Suppress the accessability message "X results found..."
+						noResults: null,
+						results: function() {}
 					}
 				});
 			},
@@ -210,9 +202,6 @@ var ziften = (function() {
 	// Make sure we're not on the home- or statuspage (especially for Chrome)
 	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/))
 	{
-		// Inject jQuery UI stylesheet as last item in the head so it overrules other styles
-		$('head').append('<link href="' + local.getURLForExtensionFile('css/jquery-ui.css') + '" media="screen" rel="stylesheet" type="text/css">');
-
 		// Enable tweaks if not on the homepage
 		tweaks.searchfieldJumpToProject();
 		tweaks.seachfieldJumpToIssue();

@@ -14,10 +14,5 @@
 	"content_scripts": [ {
 		"js": [ "js/jquery.js", "js/jquery-ui.js", "js/keymaster.js", "js/injected.js" ],
 		"matches": [ "*://*.sifterapp.com/*" ]
-	} ],
-
-	"web_accessible_resources": [
-		"css/jquery-ui.css",
-		"images/ui-bg_flat_75_ffffff_40x100.png"
-	]
+	} ]
 }
