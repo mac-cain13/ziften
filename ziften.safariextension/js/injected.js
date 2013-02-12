@@ -135,7 +135,9 @@ var ziften = (function() {
 						noResults: '',
 						results: function() {}
 					}
-				});
+				})
+				.attr('placeholder', 'Issue #, Projectname or Keyword')
+				.width('222px');
 			},
 
 			/**
