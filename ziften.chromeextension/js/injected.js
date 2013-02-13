@@ -262,6 +262,16 @@ var ziften = (function() {
 						'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
 						'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
 					'</tr>');
+			},
+
+			/**
+			 * Automaticly replace #1234 with i1234 to enable issue mentioning
+			 */
+			issueMentioningWithHash: function() {
+				$('#issue_body,#comment_body').keyup(function(event) {
+					var obj = $(this);
+					obj.val(obj.val().replace(/( |^)#(\d+)/, '$1i$2'));
+				});
 			}
 		};
 
@@ -274,5 +284,6 @@ var ziften = (function() {
 		//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
 		tweaks.hotkeys();
 		tweaks.othersIssues();
+		tweaks.issueMentioningWithHash();
 	}
 })();
