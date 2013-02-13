@@ -41,6 +41,10 @@ In the "Issues"-menu an "Others" sections shows up to quickly show all issues th
 ### Hotkeys
 * Hit **n** to jump to the "New issue"-page, works on any page with the "New issue" link.
 * Hit **s** to focus the searchbox, works on any page with the searchbox
+* Hit **m** to assign an issue to yourself (me), works on the issue page
+* Hit **r** to resolve an issue, works on the issue page
+* Hit **c** to close an issue, works on the issue page
+* Hit **o** to reopen an issue, works on the issue page
 
 ## How do I contribute?
 A: [Submit issues and ideas](https://github.com/mac-cain13/ziften/issues)
