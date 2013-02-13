@@ -231,6 +231,9 @@ var ziften = (function() {
 						console.log('[Ziften] Reopening this issue is not an option.');
 					}
 				});
+
+				// Add hotkey hints to make clear when to use what hotkey
+				$('.comment-form .tips').prepend('<p><strong>Need some hotkeys?</strong> Press <strong>m</strong> to assign this issue to yourself, <strong>r</strong> to resolve, <strong>c</strong> to close or <strong>o</strong> to reopen the issue. <em>Note that hotkeys don\'t work while typing text, click on an empty spot to re-enable them.</em></p>');
 			},
 
 			/**
