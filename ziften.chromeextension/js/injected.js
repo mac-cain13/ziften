@@ -160,17 +160,75 @@ var ziften = (function() {
 			 * Assign various hotkeys
 			 */
 			hotkeys: function() {
-				// Focus searchbar
+				// Action: Focus searchbar
+				// Works on: Every page with the searchbar
 				key('s', function(event, handler) {
 					event.preventDefault();
 					tweaks.searchfieldAutofocus();
 				});
 
-				// Create new issue
+				// Action: Create new issue
+				// Works on: Any page with the "New issue"-button
 				key('n', function(event, handler) {
 					var newIssueUrl = $('.new-issue a').attr('href');
 					if (newIssueUrl) {
 						window.location.href = newIssueUrl;
+					}
+				});
+
+				// Action: Assign issue to "me"
+				// Works on: Issue page
+				key('m', function(event, handler) {
+					// Check if we reassign, if so ask confirmation
+					var currentAssignee = $('#comment_assignee_id').val(),
+						currentAssigneeName = 'someone',
+						currentUser = local.getCurrentUserId();
+					if (currentAssignee > 0 && currentUser != currentAssignee) {
+						currentAssigneeName = $('#comment_assignee_id option:selected').text();
+						if (!confirm('This issue is already assigned to ' + currentAssigneeName + ', you will now reassign it to yourself.')) {
+							return;
+						}
+					}
+
+					// Assign to ourself
+					$('#comment_assignee_id').val(currentUser).parents('form').submit();
+				});
+
+				// Action: Resolve issue
+				// Works on: Issue page
+				key('r', function(event, handler) {
+					// Check if the resolved option is available
+					var resolvedRadio = $('#comment_status_id_3');
+					if (resolvedRadio.length > 0) {
+						resolvedRadio.prop('checked', true).parents('form').submit();
+					} else {
+						console.log('[Ziften] Resolving this issue is not an option.');
+					}
+				});
+
+				// Action: Close issue
+				// Works on: Issue page
+				key('c', function(event, handler) {
+					// Check if the issue is resolved, if not ask confirmation
+					var resolvedRadio = $('#comment_status_id_3');
+					if (!$('#comment_status_id_4').prop('checked') && resolvedRadio.length > 0 && !resolvedRadio.prop('checked')) {
+						if (!confirm('This issue is not yet resolved, you will now immediatly close it.')) {
+							return;
+						}
+					}
+
+					$('#comment_status_id_4').prop('checked', true).parents('form').submit();
+				});
+
+				// Action: Reopen issue
+				// Works on: Issue page
+				key('o', function(event, handler) {
+					// Check if the reopen option is available
+					var reopenRadio = $('#comment_status_id_2');
+					if (reopenRadio.length > 0) {
+						reopenRadio.prop('checked', true).parents('form').submit();
+					} else {
+						console.log('[Ziften] Reopening this issue is not an option.');
 					}
 				});
 			},
