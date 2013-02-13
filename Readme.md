@@ -46,6 +46,9 @@ In the "Issues"-menu an "Others" sections shows up to quickly show all issues th
 * Hit **c** to close an issue, works on the issue page
 * Hit **o** to reopen an issue, works on the issue page
 
+### Mentioning issues with #123
+When typing an issuenumber in a comment or issue like `#1234`, Ziften will replace it with `i1234` so Sifter will make a link to issue 1234 in the text. Please note that when you want to type something like 'The #1 position is incorrect...' you'll have to rephrase, as Ziften will create a link to issue 1.
+
 ## How do I contribute?
 A: [Submit issues and ideas](https://github.com/mac-cain13/ziften/issues)
 
