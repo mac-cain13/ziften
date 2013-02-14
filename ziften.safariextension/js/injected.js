@@ -18,6 +18,11 @@ var ziften = (function() {
 						projectlist.push({ label: object.text(), href: object.attr('href') });
 					});
 
+					// Sort the projectlist
+					projectlist.sort(function(a, b) {
+						return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
+					});
+
 					// Save projectslist to the storage
 					localStorage.ziftenProjectlist = JSON.stringify(projectlist);
 				}
