@@ -4,11 +4,33 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<true/>
+		<real>2</real>
 		<key>Key</key>
 		<string>hotkeys</string>
 		<key>Title</key>
 		<string>Enable hotkeys</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled, autofocus searchfield instead</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>2</real>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>1</real>
+		<key>Key</key>
+		<string>otherIssues</string>
+		<key>Title</key>
+		<string>Others issues</string>
 		<key>Titles</key>
 		<array>
 			<string>Enabled</string>
@@ -18,8 +40,30 @@
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<true/>
-			<false/>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>2</real>
+		<key>Key</key>
+		<string>mentionIssues</string>
+		<key>Title</key>
+		<string>Mentioning issues</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled, also mention with #123</string>
+			<string>Enabled, only for issues above #1000</string>
+			<string>Disabled, only mention with i123</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>2</real>
+			<real>1</real>
+			<real>0.0</real>
 		</array>
 	</dict>
 	<dict>
@@ -30,7 +74,7 @@
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<true/>
+		<real>1</real>
 		<key>Key</key>
 		<string>seachfieldJumpToIssue</string>
 		<key>Title</key>
@@ -44,17 +88,17 @@
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<true/>
-			<false/>
+			<real>1</real>
+			<real>0.0</real>
 		</array>
 	</dict>
 	<dict>
 		<key>DefaultValue</key>
-		<true/>
+		<real>1</real>
 		<key>Key</key>
 		<string>searchfieldJumpToProject</string>
 		<key>Title</key>
-		<string>Jumo to projects</string>
+		<string>Jump to projects</string>
 		<key>Titles</key>
 		<array>
 			<string>Enabled</string>
@@ -64,28 +108,8 @@
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<true/>
-			<false/>
-		</array>
-	</dict>
-	<dict>
-		<key>DefaultValue</key>
-		<false/>
-		<key>Key</key>
-		<string>searchfieldAutofocus</string>
-		<key>Title</key>
-		<string>Autofocus</string>
-		<key>Titles</key>
-		<array>
-			<string>Enabled</string>
-			<string>Disabled</string>
-		</array>
-		<key>Type</key>
-		<string>PopUpButton</string>
-		<key>Values</key>
-		<array>
-			<true/>
-			<false/>
+			<real>1</real>
+			<real>0.0</real>
 		</array>
 	</dict>
 </array>
