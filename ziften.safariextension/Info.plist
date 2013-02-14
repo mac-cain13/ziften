@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.1</string>
+	<string>1.0.1</string>
 	<key>CFBundleVersion</key>
-	<string>0.1</string>
+	<string>10001</string>
 	<key>Chrome</key>
 	<dict/>
 	<key>Content</key>
@@ -23,6 +23,7 @@
 		<key>Blacklist</key>
 		<array>
 			<string>http://sifterapp.com/*</string>
+			<string>http://status.sifterapp.com/*</string>
 			<string>http://www.sifterapp.com/*</string>
 			<string>https://sifterapp.com/*</string>
 			<string>https://www.sifterapp.com/*</string>
@@ -42,7 +43,7 @@
 		</dict>
 	</dict>
 	<key>Description</key>
-	<string>Extension that makes some modifications to SifterApp</string>
+	<string>Puts even more rocket fuel into Sifter</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>
@@ -59,5 +60,9 @@
 			<string>Some</string>
 		</dict>
 	</dict>
+	<key>Update Manifest URL</key>
+	<string>http://mac-cain13.github.com/ziften/updatemanifest.plist</string>
+	<key>Website</key>
+	<string>https://github.com/mac-cain13/ziften</string>
 </dict>
 </plist>

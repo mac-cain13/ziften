@@ -1,0 +1,18 @@
+{
+	"name": "Ziften",
+	"description": "Puts even more rocket fuel into Sifter",
+	"version": "1.0.1",
+
+	"manifest_version": 2,
+	"minimum_chrome_version": "20",
+	"icons": {
+		"128": "icon-128.png",
+		"16": "icon-16.png",
+		"48": "icon-48.png"
+	},
+
+	"content_scripts": [ {
+		"js": [ "js/jquery.js", "js/jquery-ui.js", "js/keymaster.js", "js/injected.js" ],
+		"matches": [ "*://*.sifterapp.com/*" ]
+	} ]
+}
