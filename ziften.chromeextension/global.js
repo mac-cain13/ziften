@@ -8,7 +8,7 @@ var ziftenGlobal = (function() {
 				// Get all settings
 				for (var key in request.message) {
 					var settingsKey = request.message[key];
-					settings[settingsKey] = 1;// localStorage[settingsKey];
+					settings[settingsKey] = localStorage[settingsKey];
 				}
 
 				// Respond to the injexted script with the requested settings
@@ -16,6 +16,13 @@ var ziftenGlobal = (function() {
 			}
 		}
 	};
+
+	// Initialize settings if needed
+	if (true !== localStorage.ziftenInitialized) {
+		localStorage.othersIssues = localStorage.searchfieldJumpToIssue = localStorage.searchfieldJumpToProject = 1;
+		localStorage.hotkeys = localStorage.mentionIssues = 2;
+		localStorage.ziftenInitialized = true;
+	}
 
 	// Install message handler
 	chrome.extension.onMessage.addListener(local.handleMessage);
