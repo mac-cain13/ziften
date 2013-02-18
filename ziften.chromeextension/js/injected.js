@@ -128,8 +128,17 @@ var ziften = (function() {
 			 * @returns string user ID of the current user
 			 */
 			getCurrentUserId: function() {
+				// Try to get current User ID from Issues menu
 				var href = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
-				return local.getQueryStringParam('a', href.slice(href.indexOf('?')));
+
+				// Check if we found the link
+				if (href) {
+					// Save current user ID into the local storage
+					localStorage.ziftenCurrentUserId = local.getQueryStringParam('a', href.slice(href.indexOf('?')));
+				}
+
+				// Return the current known current user ID
+				return localStorage.ziftenCurrentUserId;
 			},
 
 			/**
@@ -295,25 +304,28 @@ var ziften = (function() {
 					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href'),
 					issuesMenu = $('.nav .issues .menu table');
 
-				// Create string of all user IDs of the other users
-				userIDs.splice(currentUserIdIndex, 1);
-				otherUserIdsString = userIDs.join('-');
+				// Check if the issues menu is available
+				if (issuesMenu.length > 0) {
+					// Create string of all user IDs of the other users
+					userIDs.splice(currentUserIdIndex, 1);
+					otherUserIdsString = userIDs.join('-');
 
-				// Correct base path to base our URLs on
-				path = path.slice(0, path.indexOf('?'));
+					// Correct base path to base our URLs on
+					path = path.slice(0, path.indexOf('?'));
 
-				// Calculate the open/resolved issue count of "others"
-				//  others = (everyone's - unassigned - mine)
-				var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
-					othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
+					// Calculate the open/resolved issue count of "others"
+					//  others = (everyone's - unassigned - mine)
+					var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
+						othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
 
-				// Inject a row into the menu
-				issuesMenu.append(
-					'<tr>' +
-						'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
-						'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
-						'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
-					'</tr>');
+					// Inject a row into the menu
+					issuesMenu.append(
+						'<tr>' +
+							'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
+							'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
+							'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
+						'</tr>');
+				}
 			},
 
 			/**
@@ -322,7 +334,7 @@ var ziften = (function() {
 			issueMentioningWithHash: function(alsoBelowThousand) {
 				var regExp = (alsoBelowThousand) ? new RegExp(/( |^)#(\d+)/) : new RegExp(/( |^)#(\d{4,})/);
 
-				$('#issue_body,#comment_body').keyup(function(event) {
+				$('#issue_body, #comment_body').keyup(function(event) {
 					var obj = $(this);
 					obj.val(obj.val().replace(regExp, '$1i$2'));
 				});
