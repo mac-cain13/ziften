@@ -1,25 +1,40 @@
 var ziften = (function() {
 	// Private methods
 	var local = {
+			// All settings we want to get on initialization
 			settingKeys: ['hotkeys', 'otherIssues', 'mentionIssues', 'seachfieldJumpToIssue', 'searchfieldJumpToProject'],
 
+			/**
+			 * Initialize Ziften, gets settings and will start tweaks based on the settings
+			 */
 			initialize: function() {
 				if (window.safari) {
+					// Install Safari message handler and request settings from the global page
 					safari.self.addEventListener("message", local.handleMessage, false);
 					safari.self.tab.dispatchMessage("getSettingsRequest", local.settingKeys);
 				}
 			},
 
-			handleMessage: function(event) {
+			/**
+			 * Hande received messages from global/background pages
+			 *
+			 * @param messageEvent Safari or Chrome message
+			 */
+			handleMessage: function(messageEvent) {
 				if (window.safari) {
-					if (event.name === "getSettingsResponse") {
-						local.enableTweaks(event.message);
+					// Received response on our getSettingsRequest-message
+					if (messageEvent.name === "getSettingsResponse") {
+						local.enableTweaks(messageEvent.message);
 					}
 				}
 			},
 
+			/**
+			 * Enable Sifter tweaks based on the given settings dictionary
+			 *
+			 * @param tweakSettings object with keys and values indication that tweaks to start
+			 */
 			enableTweaks: function(tweakSettings) {
-				console.log(tweakSettings);
 				if (1 == tweakSettings.searchfieldJumpToProject) {
 					tweaks.searchfieldJumpToProject();
 				}
