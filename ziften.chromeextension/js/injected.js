@@ -12,6 +12,11 @@ var ziften = (function() {
 					// Install Safari message handler and request settings from the global page
 					safari.self.addEventListener("message", local.handleMessage, false);
 					safari.self.tab.dispatchMessage("getSettingsRequest", local.settingKeys);
+				} else if (window.chrome) {
+					// Send getSettingsRequest-message to Chrome background page
+					chrome.extension.sendMessage({ name: "getSettingsRequest", message: local.settingKeys }, local.handleMessage);
+				} else {
+					console.error("[Ziften] Unable to detect browser, initialization failed!");
 				}
 			},
 
@@ -21,11 +26,13 @@ var ziften = (function() {
 			 * @param messageEvent Safari or Chrome message
 			 */
 			handleMessage: function(messageEvent) {
-				if (window.safari) {
+				if (window.safari || window.chrome) {
 					// Received response on our getSettingsRequest-message
 					if (messageEvent.name === "getSettingsResponse") {
 						local.enableTweaks(messageEvent.message);
 					}
+				} else {
+					console.error("[Ziften] Unable to detect browser, message handling failed!");
 				}
 			},
 
