@@ -17,6 +17,7 @@
 	},
 	"content_scripts": [ {
 		"js": [ "js/jquery.js", "js/jquery-ui.js", "js/keymaster.js", "js/injected.js" ],
-		"matches": [ "*://*.sifterapp.com/*" ]
+		"matches": [ "*://*.sifterapp.com/*" ],
+		"exclude_matches": [ "*://sifterapp.com/*", "*://www.sifterapp.com/*", "*://status.sifterapp.com/*" ]
 	} ]
 }

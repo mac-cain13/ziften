@@ -5,34 +5,14 @@ var ziften = (function() {
 			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject'],
 
 			/**
-			 * Initialize Ziften, gets settings and will start tweaks based on the settings
-			 */
-			initialize: function() {
-				if (window.safari) {
-					// Install Safari message handler and request settings from the global page
-					safari.self.addEventListener("message", local.handleMessage, false);
-					safari.self.tab.dispatchMessage("getSettingsRequest", local.settingKeys);
-				} else if (window.chrome) {
-					// Send getSettingsRequest-message to Chrome background page
-					chrome.extension.sendMessage({ name: "getSettingsRequest", message: local.settingKeys }, local.handleMessage);
-				} else {
-					console.error("[Ziften] Unable to detect browser, initialization failed!");
-				}
-			},
-
-			/**
 			 * Hande received messages from global/background pages
 			 *
 			 * @param messageEvent Safari or Chrome message
 			 */
 			handleMessage: function(messageEvent) {
-				if (window.safari || window.chrome) {
-					// Received response on our getSettingsRequest-message
-					if (messageEvent.name === "getSettingsResponse") {
-						local.enableTweaks(messageEvent.message);
-					}
-				} else {
-					console.error("[Ziften] Unable to detect browser, message handling failed!");
+				// Received response on our getSettingsRequest-message
+				if (messageEvent.name === "getSettingsResponse") {
+					local.enableTweaks(messageEvent.message);
 				}
 			},
 
@@ -349,8 +329,15 @@ var ziften = (function() {
 			}
 		};
 
-	// Make sure we're not on the Sifter home- or statuspage (especially for Chrome)
-	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/)) {
-		local.initialize();
+	// Trigger initialization based on the browser we're in
+	if (window.safari) {
+		// Install Safari message handler and request settings from the global page
+		safari.self.addEventListener("message", local.handleMessage, false);
+		safari.self.tab.dispatchMessage("getSettingsRequest", local.settingKeys);
+	} else if (window.chrome) {
+		// Send getSettingsRequest-message to Chrome background page
+		chrome.extension.sendMessage({ name: "getSettingsRequest", message: local.settingKeys }, local.handleMessage);
+	} else {
+		console.error("[Ziften] Unable to detect browser, initialization failed!");
 	}
 })();
