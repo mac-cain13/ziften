@@ -41,6 +41,13 @@ In the "Issues"-menu an "Others" sections shows up to quickly show all issues th
 ### Hotkeys
 * Hit **n** to jump to the "New issue"-page, works on any page with the "New issue" link.
 * Hit **s** to focus the searchbox, works on any page with the searchbox
+* Hit **m** to assign an issue to yourself (me), works on the issue page
+* Hit **r** to resolve an issue, works on the issue page
+* Hit **c** to close an issue, works on the issue page
+* Hit **o** to reopen an issue, works on the issue page
+
+### Mentioning issues with #123
+When typing an issuenumber in a comment or issue like `#1234`, Ziften will replace it with `i1234` so Sifter will make a link to issue 1234 in the text. Please note that when you want to type something like 'The #1 position is incorrect...' you'll have to rephrase, as Ziften will create a link to issue 1.
 
 ## How do I contribute?
 A: [Submit issues and ideas](https://github.com/mac-cain13/ziften/issues)
@@ -56,5 +63,7 @@ _**Pro-tip:** Make sure to build upon the latest version of the code and keep pu
 ## License
 The code of this project is licensed under the [MIT license](https://raw.github.com/wrep/xdebug-helper-for-safari/master/License)
 so you can use it in nearly every project you want to, commercial and non-commercial.
+
+Note that the Chrome settings screen is based on the [Chrome UI bootstrap](https://github.com/roykolak/chrome-bootstrap) project, their HTML, CSS and JS is included in this project. Chrome UI bootstrap is also licensed under the [MIT license](https://raw.github.com/roykolak/chrome-bootstrap/master/LICENSE).
 
 Icon is from the [Free Set of Hand-Drawn Icons](http://vandelaydesign.com/blog/icon-sets/hand-drawn/) designed by [Damian Watracz](http://watracz.com)

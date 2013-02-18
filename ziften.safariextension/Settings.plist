@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>DefaultValue</key>
+		<real>2</real>
+		<key>Key</key>
+		<string>hotkeys</string>
+		<key>Title</key>
+		<string>Hotkeys</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled, autofocus searchfield instead</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>2</real>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>1</real>
+		<key>Key</key>
+		<string>othersIssues</string>
+		<key>Title</key>
+		<string>Others issues</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>2</real>
+		<key>Key</key>
+		<string>mentionIssues</string>
+		<key>Title</key>
+		<string>Mentioning issues</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled, also mention with #123</string>
+			<string>Enabled, only for issues above #1000</string>
+			<string>Disabled, only mention with i123</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>2</real>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
+		<key>Title</key>
+		<string>Searchfield</string>
+		<key>Type</key>
+		<string>Group</string>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>1</real>
+		<key>Key</key>
+		<string>searchfieldJumpToIssue</string>
+		<key>Title</key>
+		<string>Jump to issues</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<real>1</real>
+		<key>Key</key>
+		<string>searchfieldJumpToProject</string>
+		<key>Title</key>
+		<string>Jump to projects</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+</array>
+</plist>

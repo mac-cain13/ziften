@@ -1,6 +1,50 @@
 var ziften = (function() {
 	// Private methods
 	var local = {
+			// All settings we want to get on initialization
+			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject'],
+
+			/**
+			 * Hande received messages from global/background pages
+			 *
+			 * @param messageEvent Safari or Chrome message
+			 */
+			handleMessage: function(messageEvent) {
+				// Received response on our getSettingsRequest-message
+				if (messageEvent.name === "getSettingsResponse") {
+					local.enableTweaks(messageEvent.message);
+				}
+			},
+
+			/**
+			 * Enable Sifter tweaks based on the given settings dictionary
+			 *
+			 * @param tweakSettings object with keys and values indication that tweaks to start
+			 */
+			enableTweaks: function(tweakSettings) {
+				if (1 == tweakSettings.searchfieldJumpToProject) {
+					tweaks.searchfieldJumpToProject();
+				}
+
+				if (1 == tweakSettings.searchfieldJumpToIssue) {
+					tweaks.seachfieldJumpToIssue();
+				}
+
+				if (2 == tweakSettings.hotkeys) {
+					tweaks.hotkeys();
+				} else if (1 == tweakSettings.hotkeys) {
+					tweaks.searchfieldAutofocus();
+				}
+
+				if (1 == tweakSettings.othersIssues) {
+					tweaks.othersIssues();
+				}
+
+				if (1 <= tweakSettings.mentionIssues) {
+					tweaks.issueMentioningWithHash( (2 == tweakSettings.mentionIssues) );
+				}
+			},
+
 			/**
 			 * Get list of Sifter projects
 			 *
@@ -16,6 +60,11 @@ var ziften = (function() {
 					$('.switcher .menu a, .group .name a').each(function(index, element) {
 						var object = $(this);
 						projectlist.push({ label: object.text(), href: object.attr('href') });
+					});
+
+					// Sort the projectlist
+					projectlist.sort(function(a, b) {
+						return a.label.toLowerCase().localeCompare(b.label.toLowerCase());
 					});
 
 					// Save projectslist to the storage
@@ -79,8 +128,17 @@ var ziften = (function() {
 			 * @returns string user ID of the current user
 			 */
 			getCurrentUserId: function() {
+				// Try to get current User ID from Issues menu
 				var href = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
-				return local.getQueryStringParam('a', href.slice(href.indexOf('?')));
+
+				// Check if we found the link
+				if (href) {
+					// Save current user ID into the local storage
+					localStorage.ziftenCurrentUserId = local.getQueryStringParam('a', href.slice(href.indexOf('?')));
+				}
+
+				// Return the current known current user ID
+				return localStorage.ziftenCurrentUserId;
 			},
 
 			/**
@@ -135,7 +193,9 @@ var ziften = (function() {
 						noResults: '',
 						results: function() {}
 					}
-				});
+				})
+				.attr('placeholder', 'Issue #, Projectname or Keyword')
+				.width('222px');
 			},
 
 			/**
@@ -158,19 +218,80 @@ var ziften = (function() {
 			 * Assign various hotkeys
 			 */
 			hotkeys: function() {
-				// Focus searchbar
+				// Action: Focus searchbar
+				// Works on: Every page with the searchbar
 				key('s', function(event, handler) {
 					event.preventDefault();
 					tweaks.searchfieldAutofocus();
 				});
 
-				// Create new issue
+				// Action: Create new issue
+				// Works on: Any page with the "New issue"-button
 				key('n', function(event, handler) {
 					var newIssueUrl = $('.new-issue a').attr('href');
 					if (newIssueUrl) {
 						window.location.href = newIssueUrl;
 					}
 				});
+
+				// Action: Assign issue to "me"
+				// Works on: Issue page
+				key('m', function(event, handler) {
+					// Check if we reassign, if so ask confirmation
+					var currentAssignee = $('#comment_assignee_id').val(),
+						currentAssigneeName = 'someone',
+						currentUser = local.getCurrentUserId();
+					if (currentAssignee > 0 && currentUser != currentAssignee) {
+						currentAssigneeName = $('#comment_assignee_id option:selected').text();
+						if (!confirm('This issue is already assigned to ' + currentAssigneeName + ', you will now reassign it to yourself.')) {
+							return;
+						}
+					}
+
+					// Assign to ourself
+					$('#comment_assignee_id').val(currentUser).parents('form').submit();
+				});
+
+				// Action: Resolve issue
+				// Works on: Issue page
+				key('r', function(event, handler) {
+					// Check if the resolved option is available
+					var resolvedRadio = $('#comment_status_id_3');
+					if (resolvedRadio.length > 0) {
+						resolvedRadio.prop('checked', true).parents('form').submit();
+					} else {
+						console.log('[Ziften] Resolving this issue is not an option.');
+					}
+				});
+
+				// Action: Close issue
+				// Works on: Issue page
+				key('c', function(event, handler) {
+					// Check if the issue is resolved, if not ask confirmation
+					var resolvedRadio = $('#comment_status_id_3');
+					if (!$('#comment_status_id_4').prop('checked') && resolvedRadio.length > 0 && !resolvedRadio.prop('checked')) {
+						if (!confirm('This issue is not yet resolved, you will now immediatly close it.')) {
+							return;
+						}
+					}
+
+					$('#comment_status_id_4').prop('checked', true).parents('form').submit();
+				});
+
+				// Action: Reopen issue
+				// Works on: Issue page
+				key('o', function(event, handler) {
+					// Check if the reopen option is available
+					var reopenRadio = $('#comment_status_id_2');
+					if (reopenRadio.length > 0) {
+						reopenRadio.prop('checked', true).parents('form').submit();
+					} else {
+						console.log('[Ziften] Reopening this issue is not an option.');
+					}
+				});
+
+				// Add hotkey hints to make clear when to use what hotkey
+				$('.comment-form .tips').prepend('<p><strong>Need some hotkeys?</strong> Press <strong>m</strong> to assign this issue to yourself, <strong>r</strong> to resolve, <strong>c</strong> to close or <strong>o</strong> to reopen the issue. <em>Note that hotkeys don\'t work while typing text, click on an empty spot to re-enable them.</em></p>');
 			},
 
 			/**
@@ -183,36 +304,52 @@ var ziften = (function() {
 					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href'),
 					issuesMenu = $('.nav .issues .menu table');
 
-				// Create string of all user IDs of the other users
-				userIDs.splice(currentUserIdIndex, 1);
-				otherUserIdsString = userIDs.join('-');
+				// Check if the issues menu is available
+				if (issuesMenu.length > 0) {
+					// Create string of all user IDs of the other users
+					userIDs.splice(currentUserIdIndex, 1);
+					otherUserIdsString = userIDs.join('-');
 
-				// Correct base path to base our URLs on
-				path = path.slice(0, path.indexOf('?'));
+					// Correct base path to base our URLs on
+					path = path.slice(0, path.indexOf('?'));
 
-				// Calculate the open/resolved issue count of "others"
-				//  others = (everyone's - unassigned - mine)
-				var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
-					othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
+					// Calculate the open/resolved issue count of "others"
+					//  others = (everyone's - unassigned - mine)
+					var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
+						othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
 
-				// Inject a row into the menu
-				issuesMenu.append(
-					'<tr>' +
-						'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
-						'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
-						'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
-					'</tr>');
+					// Inject a row into the menu
+					issuesMenu.append(
+						'<tr>' +
+							'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
+							'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
+							'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
+						'</tr>');
+				}
+			},
+
+			/**
+			 * Automaticly replace #1234 with i1234 to enable issue mentioning
+			 */
+			issueMentioningWithHash: function(alsoBelowThousand) {
+				var regExp = (alsoBelowThousand) ? new RegExp(/( |^)#(\d+)/) : new RegExp(/( |^)#(\d{4,})/);
+
+				$('#issue_body, #comment_body').keyup(function(event) {
+					var obj = $(this);
+					obj.val(obj.val().replace(regExp, '$1i$2'));
+				});
 			}
 		};
 
-	// Make sure we're not on the home- or statuspage (especially for Chrome)
-	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/))
-	{
-		// Enable tweaks if not on the homepage
-		tweaks.searchfieldJumpToProject();
-		tweaks.seachfieldJumpToIssue();
-		//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
-		tweaks.hotkeys();
-		tweaks.othersIssues();
+	// Trigger initialization based on the browser we're in
+	if (window.safari) {
+		// Install Safari message handler and request settings from the global page
+		safari.self.addEventListener("message", local.handleMessage, false);
+		safari.self.tab.dispatchMessage("getSettingsRequest", local.settingKeys);
+	} else if (window.chrome) {
+		// Send getSettingsRequest-message to Chrome background page
+		chrome.extension.sendMessage({ name: "getSettingsRequest", message: local.settingKeys }, local.handleMessage);
+	} else {
+		console.error("[Ziften] Unable to detect browser, initialization failed!");
 	}
 })();
