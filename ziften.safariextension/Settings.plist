@@ -28,7 +28,7 @@
 		<key>DefaultValue</key>
 		<real>1</real>
 		<key>Key</key>
-		<string>otherIssues</string>
+		<string>othersIssues</string>
 		<key>Title</key>
 		<string>Others issues</string>
 		<key>Titles</key>
@@ -76,7 +76,7 @@
 		<key>DefaultValue</key>
 		<real>1</real>
 		<key>Key</key>
-		<string>seachfieldJumpToIssue</string>
+		<string>searchfieldJumpToIssue</string>
 		<key>Title</key>
 		<string>Jump to issues</string>
 		<key>Titles</key>
