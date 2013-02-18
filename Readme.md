@@ -64,4 +64,6 @@ _**Pro-tip:** Make sure to build upon the latest version of the code and keep pu
 The code of this project is licensed under the [MIT license](https://raw.github.com/wrep/xdebug-helper-for-safari/master/License)
 so you can use it in nearly every project you want to, commercial and non-commercial.
 
+Note that the Chrome settings screen is based on the [Chrome UI bootstrap](https://github.com/roykolak/chrome-bootstrap) project, their HTML, CSS and JS is included in this project. Chrome UI bootstrap is also licensed under the [MIT license](https://raw.github.com/roykolak/chrome-bootstrap/master/LICENSE).
+
 Icon is from the [Free Set of Hand-Drawn Icons](http://vandelaydesign.com/blog/icon-sets/hand-drawn/) designed by [Damian Watracz](http://watracz.com)

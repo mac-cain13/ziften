@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Ziften</title>
+	<link rel="stylesheet" type="text/css" href="options-bootstrap.css" />
+	<script src="js/jquery.js" type="text/javascript"></script>
+	<script src="options-bootstrap.js"></script>
+</head>
+<body class="frame">
+	<div class="navigation">
+		<h1><a href="https://github.com/mac-cain13/ziften#ziften">Ziften</a></h1>
+		<ul class="menu">
+			<li class="selected">
+				<a href="#settings">Settings</a>
+			</li>
+		</ul>
+	</div>
+	<div class="mainview view">
+		<div id="settings" class="selected">
+			<header>
+				<h1>Settings</h1>
+			</header>
+			<div class="content">
+
+				<h2>General</h2>
+				<div class="checkbox">
+					<label>
+						<input id="othersIssues" name="othersIssues" type="checkbox" value="1">
+						<span>Show "Others issues"</span>
+					</label>
+				</div>
+
+				<h3>Hotkeys</h3>
+				<div class="radio">
+					<label>
+						<input name="hotkeys" id="hotkeys2" type="radio" value="2">
+						<span>Enabled</span>
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input name="hotkeys" id="hotkeys1" type="radio" value="1">
+						<span>Disabled, autofocus searchfield instead</span>
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input name="hotkeys" id="hotkeys0" type="radio" value="0">
+						<span>Disabled</span>
+					</label>
+				</div>
+
+				<h3>Mentioning issues</h3>
+				<div class="radio">
+					<label>
+						<input name="mentionIssues" id="mentionIssues2" type="radio" value="2">
+						<span>Enabled, also mention with #123</span>
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input name="mentionIssues" id="mentionIssues1" type="radio" value="1">
+						<span>Enabled, only for issues above #1000</span>
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input name="mentionIssues" id="mentionIssues0" type="radio" value="0">
+						<span>Disabled, only mention with i123</span>
+					</label>
+				</div>
+
+				<h2>Searchfield</h2>
+				<div class="checkbox">
+					<label>
+						<input name="searchfieldJumpToIssue" id="searchfieldJumpToIssue" type="checkbox" value="1">
+						<span>Jump to issues</span>
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input name="searchfieldJumpToProject" id="searchfieldJumpToProject" type="checkbox" value="1">
+						<span>Jump to projects</span>
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
