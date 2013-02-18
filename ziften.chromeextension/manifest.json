@@ -19,5 +19,6 @@
 		"js": [ "js/jquery.js", "js/jquery-ui.js", "js/keymaster.js", "js/injected.js" ],
 		"matches": [ "*://*.sifterapp.com/*" ],
 		"exclude_matches": [ "*://sifterapp.com/*", "*://www.sifterapp.com/*", "*://status.sifterapp.com/*" ]
-	} ]
+	} ],
+	"options_page": "options.html"
 }
