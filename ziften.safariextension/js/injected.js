@@ -2,7 +2,7 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			// All settings we want to get on initialization
-			settingKeys: ['hotkeys', 'otherIssues', 'mentionIssues', 'seachfieldJumpToIssue', 'searchfieldJumpToProject'],
+			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject'],
 
 			/**
 			 * Initialize Ziften, gets settings and will start tweaks based on the settings

@@ -1,6 +1,63 @@
 var ziften = (function() {
 	// Private methods
 	var local = {
+			// All settings we want to get on initialization
+			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject'],
+
+			/**
+			 * Initialize Ziften, gets settings and will start tweaks based on the settings
+			 */
+			initialize: function() {
+				if (window.safari) {
+					// Install Safari message handler and request settings from the global page
+					safari.self.addEventListener("message", local.handleMessage, false);
+					safari.self.tab.dispatchMessage("getSettingsRequest", local.settingKeys);
+				}
+			},
+
+			/**
+			 * Hande received messages from global/background pages
+			 *
+			 * @param messageEvent Safari or Chrome message
+			 */
+			handleMessage: function(messageEvent) {
+				if (window.safari) {
+					// Received response on our getSettingsRequest-message
+					if (messageEvent.name === "getSettingsResponse") {
+						local.enableTweaks(messageEvent.message);
+					}
+				}
+			},
+
+			/**
+			 * Enable Sifter tweaks based on the given settings dictionary
+			 *
+			 * @param tweakSettings object with keys and values indication that tweaks to start
+			 */
+			enableTweaks: function(tweakSettings) {
+				if (1 == tweakSettings.searchfieldJumpToProject) {
+					tweaks.searchfieldJumpToProject();
+				}
+
+				if (1 == tweakSettings.searchfieldJumpToIssue) {
+					tweaks.seachfieldJumpToIssue();
+				}
+
+				if (2 == tweakSettings.hotkeys) {
+					tweaks.hotkeys();
+				} else if (1 == tweakSettings.hotkeys) {
+					tweaks.searchfieldAutofocus();
+				}
+
+				if (1 == tweakSettings.othersIssues) {
+					tweaks.othersIssues();
+				}
+
+				if (1 <= tweakSettings.mentionIssues) {
+					tweaks.issueMentioningWithHash( (2 == tweakSettings.mentionIssues) );
+				}
+			},
+
 			/**
 			 * Get list of Sifter projects
 			 *
@@ -275,23 +332,18 @@ var ziften = (function() {
 			/**
 			 * Automaticly replace #1234 with i1234 to enable issue mentioning
 			 */
-			issueMentioningWithHash: function() {
+			issueMentioningWithHash: function(alsoBelowThousand) {
+				var regExp = (alsoBelowThousand) ? new RegExp(/( |^)#(\d+)/) : new RegExp(/( |^)#(\d{4,})/);
+
 				$('#issue_body,#comment_body').keyup(function(event) {
 					var obj = $(this);
-					obj.val(obj.val().replace(/( |^)#(\d+)/, '$1i$2'));
+					obj.val(obj.val().replace(regExp, '$1i$2'));
 				});
 			}
 		};
 
-	// Make sure we're not on the home- or statuspage (especially for Chrome)
-	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/))
-	{
-		// Enable tweaks if not on the homepage
-		tweaks.searchfieldJumpToProject();
-		tweaks.seachfieldJumpToIssue();
-		//tweaks.searchfieldAutofocus(); // Autofocus makes the hotkey tweak less usefull, default off?!
-		tweaks.hotkeys();
-		tweaks.othersIssues();
-		tweaks.issueMentioningWithHash();
+	// Make sure we're not on the Sifter home- or statuspage (especially for Chrome)
+	if (!window.location.hostname.match(/^(www\.|status\.)?sifterapp\.com$/)) {
+		local.initialize();
 	}
 })();
