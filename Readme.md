@@ -3,30 +3,14 @@ Ziften is a browser extension for [Chrome](http://chrome.google.com/) and [Safar
 
 ## How to install?
 ### Chrome
-**Stable version:**
-
 1. [Go to Ziften in the Chrome Webstore](https://chrome.google.com/webstore/detail/bnehhdimfhgkabgidahbfpchgnkiicog)
 2. Click "+ Add to Chrome"
-
-**Development version:**
-
-1. [Download the source from GitHub](https://github.com/mac-cain13/ziften/archive/master.zip)
-2. [Load the extension into Chrome](http://developer.chrome.com/extensions/getstarted.html#unpacked)
+3. Go to [Sifter](http://www.sifterapp.com/) and enjoy!
 
 ### Safari
-**Stable version:**
-
 1. [Download the extension](http://mac-cain13.github.com/ziften/ziften.safariextz)
 2. Click on it so Safari will offer to install the extension
 3. Go to [Sifter](http://www.sifterapp.com/) and enjoy!
-
-**Development version:**
-
-1. [Download the source from GitHub](https://github.com/mac-cain13/ziften/archive/master.zip)
-2. [Load the extension into the extensionbuilder](https://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html%23//apple_ref/doc/uid/TP40009977-CH2-SW1)
-3. Click "Install" in the extensionbuilder
-
-_Note that you need your own [Safari Developer Program](https://developer.apple.com/devcenter/safari/index.action) certificate to sign the extension._
 
 ## Features / What does it do?
 ### Jump to issue
@@ -59,6 +43,12 @@ B: [Submit a pull request](https://help.github.com/articles/using-pull-requests)
 3. When you're happy send us a pull request!
 
 _**Pro-tip:** Make sure to build upon the latest version of the code and keep pull request as small as possible. This makes your pull request easy to merge._
+
+#### How to install the development version
+1. [Download the source from GitHub](https://github.com/mac-cain13/ziften/archive/master.zip)
+2. [Load the extension into Chrome](http://developer.chrome.com/extensions/getstarted.html#unpacked) or [load the extension into the Safari extensionbuilder](https://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/UsingExtensionBuilder/UsingExtensionBuilder.html%23//apple_ref/doc/uid/TP40009977-CH2-SW1)
+
+_Note that you need your own [Safari Developer Program](https://developer.apple.com/devcenter/safari/index.action) certificate to sign the Safari version of the extension._
 
 ## License
 The code of this project is licensed under the [MIT license](https://raw.github.com/wrep/xdebug-helper-for-safari/master/License)
