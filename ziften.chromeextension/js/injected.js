@@ -236,7 +236,7 @@ var ziften = (function() {
 
 				// Action: Assign issue to "me"
 				// Works on: Issue page
-				key('m', function(event, handler) {
+				key('a,m', function(event, handler) {
 					// Check if we reassign, if so ask confirmation
 					var currentAssignee = $('#comment_assignee_id').val(),
 						currentAssigneeName = 'someone',
