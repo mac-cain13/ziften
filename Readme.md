@@ -33,6 +33,9 @@ In the "Issues"-menu an "Others" sections shows up to quickly show all issues th
 ### Mentioning issues with #123
 When typing an issuenumber in a comment or issue like `#1234`, Ziften will replace it with `i1234` so Sifter will make a link to issue 1234 in the text. Please note that when you want to type something like 'The #1 position is incorrect...' you'll have to rephrase, as Ziften will create a link to issue 1.
 
+### One click issuenumber selection
+If you single-click on an issuenumber Ziften will select the whole number. This works in issuelists and on the issue detail page. Handy for mentioning issues in commit messages or in the chatroom.
+
 ### Settings
 In the Safari or Chrome settings you can look for Extensions > Ziften and toggle all of these features on or off. So if you only like some of the features above don't hesitate to try Ziften and just turn off the features you don't like!
 
