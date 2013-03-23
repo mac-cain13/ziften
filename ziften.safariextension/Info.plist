@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Wrep</string>
 	<key>Builder Version</key>
-	<string>8536.26.17</string>
+	<string>8536.28.10</string>
 	<key>CFBundleDisplayName</key>
 	<string>Ziften</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1.0</string>
+	<string>1.2.0</string>
 	<key>CFBundleVersion</key>
-	<string>10100</string>
+	<string>10200</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>

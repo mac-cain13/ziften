@@ -67,6 +67,26 @@
 		</array>
 	</dict>
 	<dict>
+		<key>DefaultValue</key>
+		<real>1</real>
+		<key>Key</key>
+		<string>selectIssueNumberOnClick</string>
+		<key>Title</key>
+		<string>Click to select issuenumber</string>
+		<key>Titles</key>
+		<array>
+			<string>Enabled</string>
+			<string>Disabled</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>1</real>
+			<real>0.0</real>
+		</array>
+	</dict>
+	<dict>
 		<key>Title</key>
 		<string>Searchfield</string>
 		<key>Type</key>

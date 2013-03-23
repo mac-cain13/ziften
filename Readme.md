@@ -25,7 +25,7 @@ In the "Issues"-menu an "Others" sections shows up to quickly show all issues th
 ### Hotkeys
 * Hit **n** to jump to the "New issue"-page, works on any page with the "New issue" link.
 * Hit **s** to focus the searchbox, works on any page with the searchbox
-* Hit **m** to assign an issue to yourself (me), works on the issue page
+* Hit **a** to assign an issue to yourself (me), works on the issue page
 * Hit **r** to resolve an issue, works on the issue page
 * Hit **c** to close an issue, works on the issue page
 * Hit **o** to reopen an issue, works on the issue page
@@ -57,6 +57,8 @@ _Note that you need your own [Safari Developer Program](https://developer.apple.
 The code of this project is licensed under the [MIT license](https://raw.github.com/wrep/xdebug-helper-for-safari/master/License)
 so you can use it in nearly every project you want to, commercial and non-commercial.
 
-Note that the Chrome settings screen is based on the [Chrome UI bootstrap](https://github.com/roykolak/chrome-bootstrap) project, their HTML, CSS and JS is included in this project. Chrome UI bootstrap is also licensed under the [MIT license](https://raw.github.com/roykolak/chrome-bootstrap/master/LICENSE).
+Ziften contains [Keymaster.js](https://github.com/madrobby/keymaster) for hotkey functionality, keymaster is also licensed under the [MIT license](https://raw.github.com/madrobby/keymaster/master/MIT-LICENSE).
+
+The Chrome settings screen is based on the [Chrome UI bootstrap](https://github.com/roykolak/chrome-bootstrap) project and is also licensed under the [MIT license](https://raw.github.com/roykolak/chrome-bootstrap/master/LICENSE).
 
 Icon is from the [Free Set of Hand-Drawn Icons](http://vandelaydesign.com/blog/icon-sets/hand-drawn/) designed by [Damian Watracz](http://watracz.com)

@@ -2,7 +2,7 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			// All settings we want to get on initialization
-			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject'],
+			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject', 'selectIssueNumberOnClick'],
 
 			/**
 			 * Hande received messages from global/background pages
@@ -42,6 +42,10 @@ var ziften = (function() {
 
 				if (1 <= tweakSettings.mentionIssues) {
 					tweaks.issueMentioningWithHash( (2 == tweakSettings.mentionIssues) );
+				}
+
+				if (1 == tweakSettings.selectIssueNumberOnClick) {
+					tweaks.selectIssueNumberOnClick();
 				}
 			},
 
@@ -236,7 +240,7 @@ var ziften = (function() {
 
 				// Action: Assign issue to "me"
 				// Works on: Issue page
-				key('m', function(event, handler) {
+				key('a,m', function(event, handler) {
 					// Check if we reassign, if so ask confirmation
 					var currentAssignee = $('#comment_assignee_id').val(),
 						currentAssigneeName = 'someone',
@@ -291,7 +295,7 @@ var ziften = (function() {
 				});
 
 				// Add hotkey hints to make clear when to use what hotkey
-				$('.comment-form .tips').prepend('<p><strong>Need some hotkeys?</strong> Press <strong>m</strong> to assign this issue to yourself, <strong>r</strong> to resolve, <strong>c</strong> to close or <strong>o</strong> to reopen the issue. <em>Note that hotkeys don\'t work while typing text, click on an empty spot to re-enable them.</em></p>');
+				$('.comment-form .tips').prepend('<p><strong>Need some hotkeys?</strong> Press <strong>a</strong> to assign this issue to yourself, <strong>r</strong> to resolve, <strong>c</strong> to close or <strong>o</strong> to reopen the issue. <em>Note that hotkeys don\'t work while typing text, click on an empty spot to re-enable them.</em></p>');
 			},
 
 			/**
@@ -337,6 +341,19 @@ var ziften = (function() {
 				$('#issue_body, #comment_body').keyup(function(event) {
 					var obj = $(this);
 					obj.val(obj.val().replace(regExp, '$1i$2'));
+				});
+			},
+
+			/**
+			 * Select the whole issuenumber when you click on it
+			 */
+			selectIssueNumberOnClick: function() {
+				$(document).on('click', '.number, #status h2 i', function() {
+					var range = document.createRange(),
+						selection = window.getSelection();
+					range.selectNodeContents(this);
+					selection.removeAllRanges();
+					selection.addRange(range);
 				});
 			}
 		};
