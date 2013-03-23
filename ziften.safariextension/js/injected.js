@@ -2,7 +2,7 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			// All settings we want to get on initialization
-			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject'],
+			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject', 'selectIssueNumberOnClick'],
 
 			/**
 			 * Hande received messages from global/background pages
@@ -42,6 +42,10 @@ var ziften = (function() {
 
 				if (1 <= tweakSettings.mentionIssues) {
 					tweaks.issueMentioningWithHash( (2 == tweakSettings.mentionIssues) );
+				}
+
+				if (1 == tweakSettings.selectIssueNumberOnClick) {
+					tweaks.selectIssueNumberOnClick();
 				}
 			},
 
@@ -337,6 +341,19 @@ var ziften = (function() {
 				$('#issue_body, #comment_body').keyup(function(event) {
 					var obj = $(this);
 					obj.val(obj.val().replace(regExp, '$1i$2'));
+				});
+			},
+
+			/**
+			 * Select the whole issuenumber when you click on it
+			 */
+			selectIssueNumberOnClick: function() {
+				$(document).on('click', '.number, #status h2 i', function() {
+					var range = document.createRange(),
+						selection = window.getSelection();
+					range.selectNodeContents(this);
+					selection.removeAllRanges();
+					selection.addRange(range);
 				});
 			}
 		};
