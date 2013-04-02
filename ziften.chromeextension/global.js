@@ -18,10 +18,14 @@ var ziftenGlobal = (function() {
 	};
 
 	// Initialize settings if needed
-	if (true !== localStorage.ziftenInitialized) {
+	if ( !('ziftenInitialized' in localStorage) ) {
 		localStorage.othersIssues = localStorage.searchfieldJumpToIssue = localStorage.searchfieldJumpToProject = 1;
 		localStorage.hotkeys = localStorage.mentionIssues = 2;
-		localStorage.ziftenInitialized = true;
+		localStorage.ziftenInitialized = 1;
+	}
+	if (2 > localStorage.ziftenInitialized) {
+		localStorage.selectIssueNumberOnClick = 1;
+		localStorage.ziftenInitialized = 2;
 	}
 
 	// Install message handler

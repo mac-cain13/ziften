@@ -59,9 +59,9 @@ var ziften = (function() {
 				var projectlist = [];
 
 				// If update is requested and we're on a projects page
-				if (updateIfPossible && $('.switcher .menu, .group .name').length > 0) {
+				if (updateIfPossible && $('.project-list').length > 0) {
 					// Go over all projects and add them to the projects list
-					$('.switcher .menu a, .group .name a').each(function(index, element) {
+					$('.project-list a').each(function(index, element) {
 						var object = $(this);
 						projectlist.push({ label: object.text(), href: object.attr('href') });
 					});
@@ -109,7 +109,7 @@ var ziften = (function() {
 					}
 
 					// Loop through all sidebar navigation links
-					$('.secondary .module.navigation.local a').each(function(index, element) {
+					$('#content-secondary .module.navigation.local a').each(function(index, element) {
 						var href = $(this).attr('href'),
 							userIdsInQuerystring = local.getQueryStringParam('a', href.slice(href.indexOf('?'))).split('-');
 						for (var i in userIdsInQuerystring) {
@@ -133,7 +133,7 @@ var ziften = (function() {
 			 */
 			getCurrentUserId: function() {
 				// Try to get current User ID from Issues menu
-				var href = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href');
+				var href = $('.nav-primary .table-issue-counts:first-child .open a').attr('href');
 
 				// Check if we found the link
 				if (href) {
@@ -232,7 +232,7 @@ var ziften = (function() {
 				// Action: Create new issue
 				// Works on: Any page with the "New issue"-button
 				key('n', function(event, handler) {
-					var newIssueUrl = $('.new-issue a').attr('href');
+					var newIssueUrl = $('.nav-primary a.text-create').attr('href');
 					if (newIssueUrl) {
 						window.location.href = newIssueUrl;
 					}
@@ -295,7 +295,7 @@ var ziften = (function() {
 				});
 
 				// Add hotkey hints to make clear when to use what hotkey
-				$('.comment-form .tips').prepend('<p><strong>Need some hotkeys?</strong> Press <strong>a</strong> to assign this issue to yourself, <strong>r</strong> to resolve, <strong>c</strong> to close or <strong>o</strong> to reopen the issue. <em>Note that hotkeys don\'t work while typing text, click on an empty spot to re-enable them.</em></p>');
+				$('#new_comment .button-supplement').prepend('<p><b>Need some hotkeys?</b> Press <b>a</b> to assign this issue to yourself, <b>r</b> to resolve, <b>c</b> to close or <b>o</b> to reopen the issue.<br /><em>Note that hotkeys don\'t work while typing text, click on an empty spot to re-enable them.</em></p>');
 			},
 
 			/**
@@ -305,8 +305,8 @@ var ziften = (function() {
 				// Gather all user IDs, the "our" user ID and the current project ID
 				var userIDs = local.getUserIds(true),
 					currentUserIdIndex = userIDs.indexOf(local.getCurrentUserId()),
-					path = $('.nav .issues .menu table tr:first-child td:first-child a').attr('href'),
-					issuesMenu = $('.nav .issues .menu table');
+					path = $('.nav-primary .table-issue-counts .open a').attr('href'),
+					issuesMenu = $('.nav-primary .table-issue-counts');
 
 				// Check if the issues menu is available
 				if (issuesMenu.length > 0) {
@@ -319,15 +319,15 @@ var ziften = (function() {
 
 					// Calculate the open/resolved issue count of "others"
 					//  others = (everyone's - unassigned - mine)
-					var othersOpened = issuesMenu.find('tr:eq(2) .open a').text() - issuesMenu.find('tr:eq(1) .open a').text() - issuesMenu.find('tr:first-child .open a').text(),
-						othersResolved = issuesMenu.find('tr:eq(2) .resolved a').text() - issuesMenu.find('tr:eq(1) .resolved a').text() - issuesMenu.find('tr:first-child .resolved a').text();
+					var othersOpened = issuesMenu.find('.count.open:eq(2) a').text() - issuesMenu.find('.count.open:eq(1) a').text() - issuesMenu.find('.count.open:eq(0) a').text(),
+						othersResolved = issuesMenu.find('.count.resolved:eq(2) a').text() - issuesMenu.find('.count.resolved:eq(1) a').text() - issuesMenu.find('.count.resolved:eq(0) a').text();
 
 					// Inject a row into the menu
 					issuesMenu.append(
 						'<tr>' +
 							'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
 							'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
-							'<td class="group"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
+							'<td class="group" scope="row"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2-3">Others</a> </td>' +
 						'</tr>');
 				}
 			},
@@ -348,7 +348,7 @@ var ziften = (function() {
 			 * Select the whole issuenumber when you click on it
 			 */
 			selectIssueNumberOnClick: function() {
-				$(document).on('click', '.number, #status h2 i', function() {
+				$(document).on('click', '.number, .subheader-status h2 i', function() {
 					var range = document.createRange(),
 						selection = window.getSelection();
 					range.selectNodeContents(this);
