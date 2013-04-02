@@ -50,16 +50,21 @@ $(function() {
 		localStorage.hotkeys = $('input[name=hotkeys]:checked').val();
 		localStorage.mentionIssues = $('input[name=mentionIssues]:checked').val();
 		localStorage.selectIssueNumberOnClick = $('input[name=selectIssueNumberOnClick]:checked').val();
+		localStorage.asyncFiltering = $('input[name=asyncFiltering]:checked').val();
 
 		localStorage.searchfieldJumpToIssue = ($('#searchfieldJumpToIssue').prop('checked')) ? $('#searchfieldJumpToIssue').val() : 0;
 		localStorage.searchfieldJumpToProject = ($('#searchfieldJumpToProject').prop('checked')) ? $('#searchfieldJumpToProject').val() : 0;
 	});
 
 	// Initialize settings if needed
-	if (true !== localStorage.ziftenInitialized) {
-		localStorage.othersIssues = localStorage.searchfieldJumpToIssue = localStorage.searchfieldJumpToProject = localStorage.selectIssueNumberOnClick = 1;
+	if ( !('ziftenInitialized' in localStorage) ) {
+		localStorage.othersIssues = localStorage.searchfieldJumpToIssue = localStorage.searchfieldJumpToProject = 1;
 		localStorage.hotkeys = localStorage.mentionIssues = 2;
-		localStorage.ziftenInitialized = true;
+		localStorage.ziftenInitialized = 1;
+	}
+	if (2 > localStorage.ziftenInitialized) {
+		localStorage.selectIssueNumberOnClick = localStorage.asyncFiltering = 1;
+		localStorage.ziftenInitialized = 2;
 	}
 
 	// Load settings
@@ -67,6 +72,7 @@ $(function() {
 	$('input[name=hotkeys][value=' + localStorage.hotkeys + ']').prop('checked', true);
 	$('input[name=mentionIssues][value=' + localStorage.mentionIssues + ']').prop('checked', true);
 	$('input[name=selectIssueNumberOnClick][value=' + localStorage.selectIssueNumberOnClick + ']').prop('checked', true);
+	$('input[name=asyncFiltering][value=' + localStorage.asyncFiltering + ']').prop('checked', true);
 
 	$('#searchfieldJumpToIssue').prop('checked', (1 == localStorage.searchfieldJumpToIssue) );
 	$('#searchfieldJumpToProject').prop('checked', (1 == localStorage.searchfieldJumpToProject) );
