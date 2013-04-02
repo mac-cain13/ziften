@@ -2,7 +2,14 @@ var ziften = (function() {
 	// Private methods
 	var local = {
 			// All settings we want to get on initialization
-			settingKeys: ['hotkeys', 'othersIssues', 'mentionIssues', 'searchfieldJumpToIssue', 'searchfieldJumpToProject', 'selectIssueNumberOnClick'],
+			settingKeys: [	'hotkeys',
+							'othersIssues',
+							'mentionIssues',
+							'searchfieldJumpToIssue',
+							'searchfieldJumpToProject',
+							'selectIssueNumberOnClick',
+							'asyncFiltering'
+							],
 
 			/**
 			 * Hande received messages from global/background pages
@@ -48,7 +55,9 @@ var ziften = (function() {
 					tweaks.selectIssueNumberOnClick();
 				}
 
-				tweaks.asyncFiltering();
+				if (1 == tweakSettings.asyncFiltering) {
+					tweaks.asyncFiltering();
+				}
 			},
 
 			/**

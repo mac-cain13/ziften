@@ -24,7 +24,7 @@ var ziftenGlobal = (function() {
 		localStorage.ziftenInitialized = 1;
 	}
 	if (2 > localStorage.ziftenInitialized) {
-		localStorage.selectIssueNumberOnClick = 1;
+		localStorage.selectIssueNumberOnClick = localStorage.asyncFiltering = 1;
 		localStorage.ziftenInitialized = 2;
 	}
 
