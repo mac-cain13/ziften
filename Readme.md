@@ -36,6 +36,9 @@ When typing an issuenumber in a comment or issue like `#1234`, Ziften will repla
 ### One click issuenumber selection
 If you single-click on an issuenumber Ziften will select the whole number. This works in issuelists and on the issue detail page. Handy for mentioning issues in commit messages or in the chatroom.
 
+### Async issue filtering
+By default Sifter reloads the entire page when you filter or sort the issuelist. Ziften makes this process asynchronous, so you'll don't need to scroll back down to check an extra filter option and it also feels somewhat faster.
+
 ### Settings
 In the Safari or Chrome settings you can look for Extensions > Ziften and toggle all of these features on or off. So if you only like some of the features above don't hesitate to try Ziften and just turn off the features you don't like!
 
