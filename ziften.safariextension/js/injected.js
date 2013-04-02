@@ -47,6 +47,8 @@ var ziften = (function() {
 				if (1 == tweakSettings.selectIssueNumberOnClick) {
 					tweaks.selectIssueNumberOnClick();
 				}
+
+				tweaks.asyncFiltering();
 			},
 
 			/**
@@ -354,6 +356,13 @@ var ziften = (function() {
 					range.selectNodeContents(this);
 					selection.removeAllRanges();
 					selection.addRange(range);
+				});
+			},
+
+			asyncFiltering: function() {
+				$(document).on('click', '#content-secondary .navigation a', function (event) {
+					event.preventDefault();
+					$('#content').load($(this).attr('href') + ' #content > *');
 				});
 			}
 		};
