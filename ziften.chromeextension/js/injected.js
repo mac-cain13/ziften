@@ -360,9 +360,24 @@ var ziften = (function() {
 			},
 
 			asyncFiltering: function() {
+				$(window).on('popstate', function(event) {
+					if ('reload' in event.originalEvent.state && event.originalEvent.state.reload) {
+						location.reload();
+					}
+				});
+
 				$(document).on('click', '#content-secondary .navigation a', function (event) {
 					event.preventDefault();
-					$('#content').load($(this).attr('href') + ' #content > *');
+					var href = $(this).attr('href');
+
+					$.get(href)
+						.done(function(data, textStatus, jqXHR) {
+							var parsedContent = $(data);
+							$('#content').html( parsedContent.find('#content > *') );
+							$('.subheader-content').html( parsedContent.find('.subheader-content > *') );
+
+							window.history.pushState({'reload': true}, '', href);
+						});
 				});
 			}
 		};
