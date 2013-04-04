@@ -1,7 +1,7 @@
 {
 	"name": "Ziften",
 	"description": "Puts even more rocket fuel into Sifter",
-	"version": "1.3.0",
+	"version": "1.3.1",
 
 	"manifest_version": 2,
 	"minimum_chrome_version": "20",
