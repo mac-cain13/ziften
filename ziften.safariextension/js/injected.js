@@ -209,7 +209,7 @@ var ziften = (function() {
 						results: function() {}
 					}
 				})
-				.attr('placeholder', 'Issue #, Projectname or Keyword')
+				.attr('placeholder', 'Issue #, Project or Keyword')
 				.width('222px');
 			},
 
