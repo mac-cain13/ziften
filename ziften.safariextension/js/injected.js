@@ -70,9 +70,9 @@ var ziften = (function() {
 				var projectlist = [];
 
 				// If update is requested and we're on a projects page
-				if (updateIfPossible && $('.project-list').length > 0) {
+				if (updateIfPossible && $('.dropdown-projects:first .project-list').length > 0) {
 					// Go over all projects and add them to the projects list
-					$('.project-list a').each(function(index, element) {
+					$('.dropdown-projects:first .project-list a').each(function(index, element) {
 						var object = $(this);
 						projectlist.push({ label: object.text(), href: object.attr('href') });
 					});
@@ -209,7 +209,7 @@ var ziften = (function() {
 						results: function() {}
 					}
 				})
-				.attr('placeholder', 'Issue #, Projectname or Keyword')
+				.attr('placeholder', 'Issue #, Project or Keyword')
 				.width('222px');
 			},
 
@@ -316,8 +316,9 @@ var ziften = (function() {
 				// Gather all user IDs, the "our" user ID and the current project ID
 				var userIDs = local.getUserIds(true),
 					currentUserIdIndex = userIDs.indexOf(local.getCurrentUserId()),
-					path = $('.nav-primary .table-issue-counts .open a').attr('href'),
-					issuesMenu = $('.nav-primary .table-issue-counts');
+					path = $('.table-issue-counts:first .open a').attr('href'),
+					issuesMenus = $('.table-issue-counts'),
+					issuesMenu = issuesMenus.first();
 
 				// Check if the issues menu is available
 				if (issuesMenu.length > 0) {
@@ -334,7 +335,7 @@ var ziften = (function() {
 						othersResolved = issuesMenu.find('.count.resolved:eq(2) a').text() - issuesMenu.find('.count.resolved:eq(1) a').text() - issuesMenu.find('.count.resolved:eq(0) a').text();
 
 					// Inject a row into the menu
-					issuesMenu.append(
+					issuesMenus.append(
 						'<tr>' +
 							'<td class="count open' + ((othersOpened === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=1-2">' + othersOpened + '</a> </td>' +
 							'<td class="count resolved' + ((othersResolved === 0) ? ' empty' : '') + '"> <a href="' + path + '?a=' + otherUserIdsString + '&amp;s=3">' + othersResolved + '</a> </td>' +
