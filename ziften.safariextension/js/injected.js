@@ -70,9 +70,9 @@ var ziften = (function() {
 				var projectlist = [];
 
 				// If update is requested and we're on a projects page
-				if (updateIfPossible && $('.project-list').length > 0) {
+				if (updateIfPossible && $('.dropdown-projects:first .project-list').length > 0) {
 					// Go over all projects and add them to the projects list
-					$('.project-list a').each(function(index, element) {
+					$('.dropdown-projects:first .project-list a').each(function(index, element) {
 						var object = $(this);
 						projectlist.push({ label: object.text(), href: object.attr('href') });
 					});
